@@ -2,20 +2,36 @@
 //  ContentView.swift
 //  ChatApp
 //
-//  Created by Ayman on 24.01.2023.
+//  by Swiftui.app on 24.01.2023.
 //
+// MARK: Instagram https://www.instagram.com/swiftui.app/
+// MARK: GitHub https://github.com/swiftui-app
+// MARK: Follow me for more.
+
 
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var messagesManager = MessagesManager()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            VStack {
+                TitleRow()
+                ScrollView {
+                    ForEach(messagesManager.messages, id: \.id) { message in
+                        MessageBubble(message: message)
+                    }
+                }
+                .padding(.top, 10)
+                .background(.white)
+                .cornerRadius(30, corners: [.topLeft, .topRight])
+            }
+            .background(Color("mycolor"))
+            
+            MessageField()
+                .environmentObject(messagesManager)
         }
-        .padding()
     }
 }
 
